@@ -1,16 +1,7 @@
-require 'bcrypt'
-
 class User < ActiveRecord::Base
-	include BCrypt
-
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
 	has_many :characters
-
-	def password
-		@password ||= Password.new(password_digest)
-	end
-
-	def password=(new_password)
-		@password = Password.create(new_password)
-		self.password_digest = @password
-	end
 end
