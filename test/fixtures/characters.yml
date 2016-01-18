@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  name: MyString
+  broad_type: 1
+  role: MyString
+  approach: 1
+  spirit_max: 1
+  spirit_refresh: 1
+  regeneration_style: MyString
+  item: 1
+  money: 1
+  allies: 1
+  item_description: MyText
+  money_description: MyText
+  allies_description: MyText
+  stress_max: 1
+
+two:
+  user_id: 1
+  name: MyString
+  broad_type: 1
+  role: MyString
+  approach: 1
+  spirit_max: 1
+  spirit_refresh: 1
+  regeneration_style: MyString
+  item: 1
+  money: 1
+  allies: 1
+  item_description: MyText
+  money_description: MyText
+  allies_description: MyText
+  stress_max: 1
