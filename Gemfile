@@ -42,7 +42,7 @@ gem 'font-awesome-rails'
 gem 'foundation-rails'
 
 # Use datatables for sortable, searchable tables
-gem 'jquery-datatable-rails', '~> 3.3.0'
+gem 'jquery-datatables-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
