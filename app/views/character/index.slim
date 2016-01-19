@@ -1,28 +1,28 @@
 h1 Characters
 
 table#characters_table
-	thead
-		tr
-			th Name
-			th Broad Type
-			th Role
-			th " "
-			th " "
-	tbody
-		- unless @characters.present?
-			tr
-				td colspan="5" align="center"
-					No characters to display.
-		- else
-			- @characters.each do |character|
-				tr
-					td
-						= @character.name
-					td
-						= @character.broad_type.name
-					td
-						= @character.role
-					td
-						= link_to "Edit", edit_character_path(@character)
-					td
-						= link_to "Delete", delete_character_path(@character)
+  thead
+    tr
+      th Name
+      th Broad Type
+      th Role
+      th " "
+      th " "
+  tbody
+    - unless @characters.present?
+      tr
+        td colspan="5" align="center"
+          No characters to display.
+    - else
+      - @characters.each do |character|
+        tr
+          td
+            = @character.name
+          td
+            = @character.broad_type.name
+          td
+            = @character.role
+          td
+            = link_to "Edit", edit_character_path(@character)
+          td
+            = link_to "Delete", delete_character_path(@character)

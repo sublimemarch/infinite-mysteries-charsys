@@ -1,22 +1,22 @@
 h1 Campaigns
 
 table#campaigns_table
-	thead
-		tr
-			th Name
-			th " "
-			th " "
-	tbody
-		- unless @campaigns.present?
-			tr
-				td colspan="3" align="center"
-					No campaigns to display.
-		- else
-			- @campaigns.each do |campaign|
-				tr
-					td
-						= campaign.name
-					td
-						= link_to "Edit", edit_campaign_path(campaign)
-					td
-						= link_to "Delete", delete_campaign_path(campaign)
+  thead
+    tr
+      th Name
+      th " "
+      th " "
+  tbody
+    - unless @campaigns.present?
+      tr
+        td colspan="3" align="center"
+          No campaigns to display.
+    - else
+      - @campaigns.each do |campaign|
+        tr
+          td
+            = campaign.name
+          td
+            = link_to "Edit", edit_campaign_path(campaign)
+          td
+            = link_to "Delete", delete_campaign_path(campaign)
