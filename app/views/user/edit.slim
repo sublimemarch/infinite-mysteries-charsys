@@ -1,0 +1,7 @@
+h1 Account Settings
+
+= form_for @user, url: {action: "update"} do |f|
+	= f.text_field :display_name
+	= f.email_field :email
+	= f.password_field :email
+	= button_tag "Save", type: 'submit'
