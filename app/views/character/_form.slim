@@ -8,7 +8,7 @@
 								= f.text_field :name
 						tr
 							td colspan="2"
-								[PUT BROAD TYPE THING HERE, SHOULD BE COLLECTION]
+								= collection_select :character, :broad_type_id, BroadType.all, :id, :name
 						tr
 							td colspan="2"
 								= f.text_field :role
@@ -27,44 +27,30 @@
 				td
 					h3 Powers
 
-					dl
-						- if @character.character_has_powers.present?
-							- @character.character_has_powers.each do |power|
-								dt
-									= power.power.name
-									- if power.power.requires_specification
-										= " (#{power.specification})"
-								dd
-									= power.power.description
+					[needs some kind of collection select]
+					= fields_for :character_has_power do |power|
+						= collection_select :character_has_powers, :power_id, Power.all, :id, :name
+
+						p todo: figure out a way to show specification field if required
+
+						p also figure out how to implement the select_max limit for powers that use it
 
 				td
 					h3 Knacks
-					ul
-						- if @character.knacks.present?
-							- @character.knacks.each do |knack|
-								li
-									= knack.knack
+					
+					= fields_for :kack do |knack|
+						= knack.text_field :knack
 
 					h3 Backgrounds
 
-					dl
-						dt
-							= "Item #{@character.item}"
-						dd
-							= @character.item_description
-						dt
-							= "Money #{@character.money}"
-						dd
-							= @character.money_description
-						dt
-							= "Item #{@character.allies}"
-						dd
-							= @character.allies_description
+					= f.text_field :items
+					= f.text_area :items_description
+					= f.text_field :money
+					= f.text_area :money_description
+					= f.text_field :allies
+					= f.text_area :allies_description
 			tr
 				h3 Flaws
 
-				ul
-					- if @character.flaws.present?
-						- @character.flaws.each do |flaw|
-							li
-								= flaw.flaw
+				= fields_for :flaw do |flaw|
+					= flaw.text_field :flaw

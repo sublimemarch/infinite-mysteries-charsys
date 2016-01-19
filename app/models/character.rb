@@ -4,4 +4,6 @@ class Character < ActiveRecord::Base
 	has_many :powers, through: :character_has_powers
 	has_many :knacks
 	has_many :flaws
+
+	accepts_nested_attributes_for :knacks, :flaws, :character_has_powers
 end
