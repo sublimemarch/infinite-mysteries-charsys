@@ -6,9 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-broad_types = BroadTypes.create([{name: 'Mortal'}, {name: 'Goodneighbor'}, {name: 'Wyrd'}, {name: 'Undead'}])
+broad_types = BroadType.create([{name: 'Mortal'}, {name: 'Goodneighbor'}, {name: 'Wyrd'}, {name: 'Undead'}])
 
-powers = Powers.create([
+powers = Power.create([
 		{name: 'Accurate [Weapon]', tier: 1, description: 'Choose a weapon when selecting this power. Your character gains a free retest when using this weapon. This power can be taken multiple times, choosing a different weapon each time.', requires_specification: true, specification_name: 'Weapon', select_multiple: true},
 		{name: 'Animal Conversation', tier: 1, description: 'Your character can spend a Spirit to be able to speak to a type of animal for a scene, chosen when they activate this power.'},
 		{name: '[Animal] Form', tier: 2, description: 'Your character can shapeshift into the form of a specific animal, chosen when you take this power. Doing so takes some time, but it can be sped up by spending spirit. For the cost of 1 Spirit it can happen in a combat action and for 2 Spirit it can happen reflexively. While you remain an animal, treat the type (Wolf, Bat, etc.) as your Approach for the purpose of retests. Shapeshifting back can happen in a combat action, or reflexively for 1 Spirit. This power can be taken multiple times, choosing a different animal each time.', requires_specification: true, specification_name: 'Animal', select_multiple: true},
@@ -20,8 +20,8 @@ powers = Powers.create([
 		{name: 'Charm [Type]', tier: 1, description: 'Choose a Broad Type when selecting this power. Your character can spend a Spirit to try to make that Broad Type your friend for a scene. This power can be taken up to four times, once for each type.', requires_specification: true, specification_name: 'Type', select_multiple: true},
 		{name: 'Dodge', tier: 1, description: 'Your character can spend a Spirit to cancel one attack’s damage or effect.'},
 		{name: 'Eidetic Memory', tier: 1, description: 'Your character has a free retest whenever trying to memorize or remember something.'},
-		{name: '[Element] Control', tier: 2, description: 'Choose a type of element when you select this power. Your character can attempt to control it. In addition, you may spend a Spirit to attempt to increase or reduce the amount of this element in an area or to retest your power to control it.', requires_specification: true, specification: 'Element', select_multiple: true},
-		{name: '[Element] Creation', tier: 1, description: 'Choose a type of element when you select this power. Your character can spend a Spirit to create this element out of thin air in their hands, but only enough to fill a pair of cupped hands. This element can be thrown as an attack, but then more would need to be created.', requires_specification: true, specification: 'Element', select_multiple: true},
+		{name: '[Element] Control', tier: 2, description: 'Choose a type of element when you select this power. Your character can attempt to control it. In addition, you may spend a Spirit to attempt to increase or reduce the amount of this element in an area or to retest your power to control it.', requires_specification: true, specification_name: 'Element', select_multiple: true},
+		{name: '[Element] Creation', tier: 1, description: 'Choose a type of element when you select this power. Your character can spend a Spirit to create this element out of thin air in their hands, but only enough to fill a pair of cupped hands. This element can be thrown as an attack, but then more would need to be created.', requires_specification: true, specification_name: 'Element', select_multiple: true},
 		{name: 'Elusive', tier: 1, description: 'Your character can spend a Spirit to retest against someone affecting them with mystical or magical Powers.'},
 		{name: 'Empathic', tier: 2, description: 'Your character can attempt to read the emotions of others. They can also spend a Spirit to attempt to intensify or reduce that emotion.'},
 		{name: 'Endurance', tier: 1, description: 'Gain a Stress box. In addition, your character can spend a Spirit for a retest when dealing with poisons, diseases, or other physical health concerns. This power can be taken up to three times, but note that you only benefit from the extra Stress boxes.', requires_specification: false, select_multiple: true, select_max: 3},
