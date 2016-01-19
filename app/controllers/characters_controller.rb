@@ -1,8 +1,8 @@
-class CampaignController < ApplicationController
+class CharactersController < ApplicationController
 	def index
 
 	end
-	
+
 	def show
 
 	end
@@ -23,9 +23,13 @@ class CampaignController < ApplicationController
 
 	end
 
+	def destroy
+
+	end
+
 	private
 
-	def campaign_params
+	def character_params
 
 	end
 end
