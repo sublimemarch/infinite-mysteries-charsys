@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160118233110) do
+ActiveRecord::Schema.define(version: 20160119032540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20160118233110) do
     t.boolean  "requires_specification", default: false
     t.string   "specification_name",     default: ""
     t.boolean  "select_multiple",        default: false
+    t.integer  "select_max",             default: 0
   end
 
   create_table "user_administers_campaigns", force: :cascade do |t|
