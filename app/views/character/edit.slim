@@ -1,0 +1,5 @@
+h2 
+	= "Edit Character: #{@character.name}"
+
+= form_for @character, url: {action: 'update'} do |f|
+	= render partial: 'form', locals: {f: f}
