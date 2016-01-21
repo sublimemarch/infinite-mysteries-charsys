@@ -2,11 +2,14 @@ class CampaignsController < ApplicationController
 	before_action :authenticate_user!
 	
 	def index
-		@campaigns = Campaign.where({user: current_user})
+		@campaigns = Campaign.where({user_id: current_user})
 	end
 	
 	def show
 		@campaign = Campaign.find(params[:id])
+		unless @campaign.users.include?(current_user)
+			redirect_to campaigns_path
+		end
 	end
 
 	def new
@@ -15,7 +18,18 @@ class CampaignsController < ApplicationController
 
 	def create
 		@campaign = Campaign.new(campaign_params)
+		@users = params[:user_administers_campaign][:user_id].split(",")
+		# make sure users don't forget to make themselves a storyteller
+		puts @users
+		puts current_user.id
+		unless @users.include?(current_user.id.to_s)
+			@users << current_user.id
+		end
 		if @campaign.save!
+			@users.each do |user|
+				@admin = UserAdministersCampaign.new({user_id: user, campaign_id: @campaign.id})
+				@admin.save!
+			end
 			flash[:success] = "Your new campaign was successfully saved."
 			redirect_to campaign_path(@campaign)
 		else
@@ -30,7 +44,25 @@ class CampaignsController < ApplicationController
 
 	def update
 		@campaign = Campaign.find(params[:campaign][:id])
+		@users = params[:user_administers_campaign][:user_id].split(",")
+		@admins = UserAdministersCampaign.where({campaign_id: @campaign.id})
+		# make sure users can't delete themselves from the list
+		unless @users.include?(current_user.id.to_s)
+			@users << current_user.id
+		end
 		if @campaign.update_attributes!(campaign_params)
+			# add new admins
+			@users.each do |user|
+				unless UserAdministersCampaign.where({user_id: user.id, campaign_id: @campaign.id}).present?
+					@admin = UserAdministersCampaign.new({user_id: user, campaign_id: @campaign_id})
+				end
+			end
+			# delete admins that are no longer on the list
+			@admins.each do |admin|
+				unless @users.include?(@admin.user_id)
+					admin.delete_all
+				end
+			end
 			flash[:success] = "The changes to your campaign were successfully saved."
 			redirect_to campaign_path(@campaign)
 		else

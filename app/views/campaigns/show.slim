@@ -1,19 +1,19 @@
-h1 "#{@campaign.name}: List of Characters"
+h2 #{@campaign.name}: List of Characters
 
-table#characters_table
+table#characters_table width="100%"
   thead
     tr
       th Name
       th Player
       th Broad Type
       th Role
-      th " "
-      th " "
+      th  
+      th  
   tbody
     - unless @characters.present?
       tr
-        td colspan="5" align="center"
-          No characters to display.
+        td colspan="6" align="center"
+          p No characters to display.
     - else
       - @characters.each do |character|
         tr
