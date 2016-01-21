@@ -41,7 +41,7 @@ class CampaignsController < ApplicationController
 
 	def find_storyteller
 		@storytellers = User.where('email LIKE ?', "#{params[:q]}%")
-		@storytellers.to_json
+		render json: @storytellers.map { |st| {id: st.id, email: st.email, display_name: st.display_name}}
 	end
 
 	private
