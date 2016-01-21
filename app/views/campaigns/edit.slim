@@ -1,3 +1,17 @@
 = form_for @campaign, url: {action: 'update'} do |f|
 	= render partial: 'form', locals: {f: f}
 	= button_tag "Save", type: 'submit'
+
+
+javascript:
+	jQuery(document).ready(function() {
+		var storytellerData = [];
+		jQuery.ajax({
+			method: 'GET',
+			url: '/api/campaigns/get_storytellers?campaign_id=#{@campaign.id}',
+			success: function(data) {
+				jQuery('#user_administers_campaign_user_id').tokenInput("/api/campaigns/find_storyteller", {preventDuplicates: true, propertyToSearch: 'email', theme: 'facebook', prePopulate: data})
+			}
+		});
+		
+	});

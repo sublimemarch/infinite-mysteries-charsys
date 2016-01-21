@@ -17,7 +17,8 @@ Rails.application.routes.draw do
 
   root 'characters#index'
   
-  get '/campaigns/find_storyteller' => 'campaigns#find_storyteller'
+  get '/api/campaigns/find_storyteller' => 'campaigns#find_storyteller'
+  get '/api/campaigns/get_storytellers' => 'campaigns#get_storytellers'
 
   resources :campaigns
   resources :characters

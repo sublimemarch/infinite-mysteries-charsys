@@ -5,8 +5,3 @@
 = fields_for :user_administers_campaign do |user|
 	= label_tag :user_administers_campaign, "Storytellers"
 	= user.text_field :user_id
-
-javascript:
-	jQuery(document).ready(function() {
-		jQuery('#user_administers_campaign_user_id').tokenInput("/campaigns/find_storyteller", {preventDuplicates: true, propertyToSearch: 'email', theme: 'facebook'})
-	});

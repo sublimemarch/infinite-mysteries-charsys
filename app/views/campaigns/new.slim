@@ -1,3 +1,9 @@
 = form_for @campaign, url: {action: 'create'} do |f|
 	= render partial: 'form', locals: {f: f}
 	= button_tag "Create", type: 'submit'
+
+
+javascript:
+	jQuery(document).ready(function() {
+		jQuery('#user_administers_campaign_user_id').tokenInput("/campaigns/find_storyteller", {preventDuplicates: true, propertyToSearch: 'email', theme: 'facebook'})
+	});
