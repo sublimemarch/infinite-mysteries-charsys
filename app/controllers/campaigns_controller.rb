@@ -96,22 +96,26 @@ class CampaignsController < ApplicationController
 	def update_questionnaire
 		@campaign = Campaign.find(params[:id])
 		@current_questions = QuestionnaireItem.where({campaign_id: params[:id]})
-		@questions = params[:campaign]
+		@questions = params[:questionnaire]
 		@question_ids = []
 
 		@questions.each do |question|
-			if question.id.present?
-				# Update existing questions
-				@question = QuestionnaireItem.find(question[:id])
-				@question.update_attributes!({question: question[:question]})
-				@question_ids << question[:id]
-			else
-				# Add new questions
-				@question = QuestionnaireItem.new({question: question[:question]})
-				@question.save!
+			if question[:question].present? #skip empties
+				puts question.inspect
+				if question[:id].present?
+					# Update existing questions
+					@question = QuestionnaireItem.find(question[:id].to_i)
+					@question.update_attributes!({question: question[:question], order: question[:order]})
+					@question_ids << @question.id
+				else
+					# Add new questions
+					@question = QuestionnaireItem.new({question: question[:question], campaign_id: @campaign.id, order: question[:order]})
+					@question.save!
+					@question_ids << @question.id
+				end
 			end
 		end
-		
+
 		# prune questions that have been removed
 		@current_questions.each do |old_q|
 			unless @question_ids.include?(old_q.id)
