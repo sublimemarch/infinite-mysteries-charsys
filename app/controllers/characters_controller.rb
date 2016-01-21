@@ -1,4 +1,6 @@
 class CharactersController < ApplicationController
+	before_action :authenticate_user!
+	
 	def index
 		@characters = Character.find_by_user(session[:user])
 	end
