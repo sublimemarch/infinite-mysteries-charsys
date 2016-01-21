@@ -1,33 +1,40 @@
-	table#character_sheet
+	table#character_sheet width="100%"
 		tbody
-			tr colspan="2"
-				td
-					table
+			tr
+				td colspan="2"
+					table width="100%"
 						tr
 							td colspan="2"
+								= label_tag :name
 								= f.text_field :name
 						tr
 							td colspan="2"
+								= label_tag :broad_type
 								= collection_select :character, :broad_type_id, BroadType.all, :id, :name
 						tr
 							td colspan="2"
+								= label_tag :role
 								= f.text_field :role
 						tr
 							td colspan="2"
+								= label_tag :approach
 								= f.text_field :approach
 						tr
 							td
+								= label_tag :spirit_max
 								= f.text_field :spirit_max
 							td
+								= label_tag :spirit_refresh
 								= f.text_field :spirit_refresh
 						tr
 							td colspan="2"
+								= label_tag :regeneration_style
 								= f.text_field :regeneration_style
 			tr
-				td
+				td valign="top"
 					h3 Powers
 
-					[needs some kind of collection select]
+					p needs some kind of collection select
 					= fields_for :character_has_power do |power|
 						= collection_select :character_has_powers, :power_id, Power.all, :id, :name
 
@@ -35,22 +42,31 @@
 
 						p also figure out how to implement the select_max limit for powers that use it
 
-				td
+				td valign="top"
 					h3 Knacks
 					
 					= fields_for :kack do |knack|
+						= label_tag :knack
 						= knack.text_field :knack
 
 					h3 Backgrounds
 
-					= f.text_field :items
-					= f.text_area :items_description
+					= label_tag :item
+					= f.text_field :item
+					= label_tag :item_description
+					= f.text_area :item_description
+					= label_tag :money
 					= f.text_field :money
+					= label_tag :money_description
 					= f.text_area :money_description
+					= label_tag :allies
 					= f.text_field :allies
+					= label_tag :allies_description
 					= f.text_area :allies_description
 			tr
-				h3 Flaws
+				td colspan="2"
+					h3 Flaws
 
-				= fields_for :flaw do |flaw|
-					= flaw.text_field :flaw
+					= fields_for :flaw do |flaw|
+						= label_tag :flaw
+						= flaw.text_field :flaw
