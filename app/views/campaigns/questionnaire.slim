@@ -1,0 +1,43 @@
+h2 Questionnaire
+
+= form_for @questionnaire_item, method: 'POST' do |f|
+	ul#questionnaire
+		- if @campaign.questionnaire_items.present?
+			- @campaign.questionnaire_items.order_by(:order).each do |question|
+				li
+					= fields_for @questionnaire_item do |q|
+						= label_tag :question
+						= q.text_field :question
+						= q.hidden_field :id
+						= q.hidden_field :order, class: 'order-field'
+						= q.hidden_field :campaign_id
+
+	div.template
+		= fields_for @questionnaire_item do |q|
+			= label_tag :question
+			= q.text_field :question
+			= q.hidden_field :id
+			= q.hidden_field :order, class: 'order-field'
+			= hidden_field_tag :campaign, :campaign_id, value: @campaign.id
+
+	= button_tag "Add Question", id: 'add'
+	= button_tag "Save", type: 'submit'
+
+javascript:
+	jQuery(document).ready(function() {
+		jQuery('#questionnaire').sortable({
+			handle: 'label',
+			change: function() {
+				var length = jQuery('#questionnaire li').length();
+				jQuery('#questionnaire li').each(function (index) {
+					jQuery(this).find('.order-field').val(index);
+				});
+			}
+		});
+
+		jQuery('#add').click(function(e) {
+			e.preventDefault();
+			var newItem = jQuery('.template').children().clone().wrap('li');
+			jQuery('#questionnaire').append(newItem);
+		});
+	});

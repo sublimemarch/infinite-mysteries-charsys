@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   resources :campaigns
   resources :characters
 
+  get 'campaigns/:id/questionnaire' => 'campaigns#questionnaire'
+  post 'campaigns/:id/questionnaire' => 'campaigns#update_questionnaire'
+
 
   # Example resource route with options:
   #   resources :products do

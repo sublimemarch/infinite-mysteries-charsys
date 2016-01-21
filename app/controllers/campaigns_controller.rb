@@ -88,6 +88,40 @@ class CampaignsController < ApplicationController
 		render json: @campaign.users.map { |st| { id: st.id, email: st.email, display_name: st.display_name } }
 	end
 
+	def questionnaire
+		@campaign = Campaign.find(params[:id])
+		@questionnaire_item = QuestionnaireItem.new
+	end
+
+	def update_questionnaire
+		@campaign = Campaign.find(params[:id])
+		@current_questions = QuestionnaireItem.where({campaign_id: params[:id]})
+		@questions = params[:campaign]
+		@question_ids = []
+
+		@questions.each do |question|
+			if question.id.present?
+				# Update existing questions
+				@question = QuestionnaireItem.find(question[:id])
+				@question.update_attributes!({question: question[:question]})
+				@question_ids << question[:id]
+			else
+				# Add new questions
+				@question = QuestionnaireItem.new({question: question[:question]})
+				@question.save!
+			end
+		end
+		
+		# prune questions that have been removed
+		@current_questions.each do |old_q|
+			unless @question_ids.include?(old_q.id)
+				old_q.delete
+			end
+		end
+
+		redirect_to campaign_path(@campaign)
+	end
+
 	private
 
 	def campaign_params

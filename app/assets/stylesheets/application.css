@@ -16,3 +16,7 @@
  *= require token-input
  *= require token-input-facebook
  */
+
+.template {
+	display: none;
+}
