@@ -1,5 +1,7 @@
 h2 #{@campaign.name}: List of Characters
 
+= link_to "Edit Questionnaire", "/campaigns/#{params[:id]}/questionnaire"
+
 table#characters_table width="100%"
   thead
     tr

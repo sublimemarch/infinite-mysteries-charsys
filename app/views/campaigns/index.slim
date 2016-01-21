@@ -6,6 +6,7 @@ table#campaigns_table width="100%"
       th Name
       th  
       th  
+      th  
   tbody
     - unless @campaigns.present?
       tr
@@ -18,6 +19,8 @@ table#campaigns_table width="100%"
             = link_to campaign.name, campaign_path(campaign)
           td
             = link_to "Edit", edit_campaign_path(campaign)
+          td
+            = link_to "Questionnaire", "/campaigns/#{campaign.id}/questionnaire"
           td
             = form_for campaign, url: "/campaigns/#{campaign.id}", method: 'DELETE' do |f|
               = f.hidden_field :id
