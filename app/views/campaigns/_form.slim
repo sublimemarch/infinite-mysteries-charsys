@@ -8,5 +8,5 @@
 
 javascript:
 	jQuery(document).ready(function() {
-		jQuery('#user_administers_campaign_user_administers_campaign').tokenInput({preventDuplicates: true})
+		jQuery('#user_administers_campaign_user_administers_campaign').tokenInput("/campaigns/find_storyteller", {preventDuplicates: true})
 	});

@@ -40,7 +40,8 @@ class CampaignsController < ApplicationController
 	end
 
 	def find_storyteller
-		@storytellers = User.where("email LIKE ?", params[:q])
+		@storytellers = User.where('email LIKE ?', "#{params[:q]}%")
+		@storytellers.to_json
 	end
 
 	private

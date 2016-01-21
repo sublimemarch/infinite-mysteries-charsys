@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   resources :campaigns
   resources :characters
 
+  get '/campaigns/find_storyteller' => 'campaigns#find_storyteller'
+
   # Example resource route with options:
   #   resources :products do
   #     member do
