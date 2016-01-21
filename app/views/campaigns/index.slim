@@ -1,11 +1,11 @@
 h2 Campaigns
 
-table#campaigns_table
+table#campaigns_table width="100%"
   thead
     tr
       th Name
-      th " "
-      th " "
+      th  
+      th  
   tbody
     - unless @campaigns.present?
       tr
@@ -15,7 +15,7 @@ table#campaigns_table
       - @campaigns.each do |campaign|
         tr
           td
-            = campaign.name
+            = link_to campaign.name, campaign_path(campaign)
           td
             = link_to "Edit", edit_campaign_path(campaign)
           td
