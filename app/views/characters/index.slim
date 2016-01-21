@@ -1,18 +1,18 @@
-h1 Characters
+h2 Characters
 
-table#characters_table
+table#characters_table width="100%"
   thead
     tr
       th Name
       th Broad Type
       th Role
-      th " "
-      th " "
+      th  
+      th  
   tbody
     - unless @characters.present?
       tr
         td colspan="5" align="center"
-          No characters to display.
+          = "No characters to display."
     - else
       - @characters.each do |character|
         tr
