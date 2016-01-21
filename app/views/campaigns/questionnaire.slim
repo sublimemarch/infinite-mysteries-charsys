@@ -26,14 +26,11 @@ javascript:
 			handle: 'label',
 			stop: function() {
 				var length = jQuery('#questionnaire li').length;
-				console.log(jQuery('#questionnaire li'));
 				jQuery('#questionnaire li').each(function (index) {
 					jQuery(this).find('.order-field').val(index);
 				});
 			}
 		});
-
-		jQuery('#questionnaire').trigger('change');
 
 		jQuery('#add').click(function(e) {
 			e.preventDefault();
