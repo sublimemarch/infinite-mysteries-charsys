@@ -19,4 +19,6 @@ table#campaigns_table
           td
             = link_to "Edit", edit_campaign_path(campaign)
           td
-            = link_to "Delete", delete_campaign_path(campaign)
+            = form_for campaign, url: "/campaigns/#{campaign.id}", method: 'DELETE' do |f|
+              = f.hidden_field :id
+              = button_tag "Delete", type: 'submit'

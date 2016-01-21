@@ -2,7 +2,7 @@ class CampaignsController < ApplicationController
 	before_action :authenticate_user!
 	
 	def index
-		@campaigns = Campaign.where({user_id: current_user})
+		@campaigns = current_user.campaigns
 	end
 	
 	def show
@@ -43,7 +43,7 @@ class CampaignsController < ApplicationController
 	end
 
 	def update
-		@campaign = Campaign.find(params[:campaign][:id])
+		@campaign = Campaign.find(params[:id])
 		@users = params[:user_administers_campaign][:user_id].split(",")
 		@admins = UserAdministersCampaign.where({campaign_id: @campaign.id})
 		# make sure users can't delete themselves from the list
@@ -53,14 +53,15 @@ class CampaignsController < ApplicationController
 		if @campaign.update_attributes!(campaign_params)
 			# add new admins
 			@users.each do |user|
-				unless UserAdministersCampaign.where({user_id: user.id, campaign_id: @campaign.id}).present?
-					@admin = UserAdministersCampaign.new({user_id: user, campaign_id: @campaign_id})
+				unless UserAdministersCampaign.where({user_id: user.to_i, campaign_id: @campaign.id}).present?
+					@admin = UserAdministersCampaign.new({user_id: user.to_i, campaign_id: @campaign_id})
 				end
 			end
 			# delete admins that are no longer on the list
 			@admins.each do |admin|
-				unless @users.include?(@admin.user_id)
-					admin.delete_all
+				puts admin.inspect
+				unless @users.include?(admin.user_id)
+					admin.delete
 				end
 			end
 			flash[:success] = "The changes to your campaign were successfully saved."
@@ -69,6 +70,12 @@ class CampaignsController < ApplicationController
 			flash[:error] = "There was an error saving the changes to your campaign."
 			redirect_to edit_campaign_path(@campaign)
 		end
+	end
+
+	def destroy
+		@campaign = Campaign.find(params[:id])
+		@campaign.delete
+		redirect_to campaigns_path
 	end
 
 	def find_storyteller
