@@ -17,12 +17,12 @@ table#characters_table width="100%"
       - @characters.each do |character|
         tr
           td
-            = @character.name
+            = link_to character.name, character_path(character)
           td
-            = @character.broad_type.name
+            = character.broad_type.name
           td
-            = @character.role
+            = character.role
           td
-            = link_to "Edit", edit_character_path(@character)
+            = link_to "Edit", edit_character_path(character)
           td
-            = link_to "Delete", delete_character_path(@character)
+            = "delete goes here"

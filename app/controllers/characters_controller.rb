@@ -10,7 +10,7 @@ class CharactersController < ApplicationController
 	before_action :authenticate_user!
 	
 	def index
-		@characters = Character.find_by_user_id(current_user)
+		@characters = Character.where(user_id: current_user)
 	end
 
 	def show
@@ -23,7 +23,19 @@ class CharactersController < ApplicationController
 
 	def create
 		@character = Character.new(character_params)
+		@knacks = params[:character][:knacks]
+		@flaws = params[:character][:flaws]
+		@character_has_powers = params[:chacacter][:character_has_powers]
 		if @character.save!
+			@knacks.each do |knack|
+				@knack = Knack.new({knack: knack[:knack], character_id: @character.id})
+			end
+			@flaws.each do |flaw|
+				@flaw = Flaw.new({flaw: flaw[:flaw], character_id: @character.id})
+			end
+			@character_has_powers.each do |power|
+				@power = CharacterHasPower.new({character_id: @character.id, power_id: power[:id]})
+			end
 			flash[:success] = "Your character sheet was saved successfully."
 			redirect_to characters_path
 		else
@@ -37,7 +49,10 @@ class CharactersController < ApplicationController
 	end
 
 	def update
-		@character = Character.find(params[:character][:id])
+		@character = Character.find(params[:id])
+		@knacks = params[:character][:knacks]
+		@flaws = params[:character][:flaws]
+		@character_has_powers = params[:chacacter][:character_has_powers]
 		if @character.update_attributes!(character_params)
 			flash[:success] = "Your character sheet was saved successfully."
 			redirect_to characters_path
@@ -61,6 +76,6 @@ class CharactersController < ApplicationController
 	private
 
 	def character_params
-		params.require(:character).permit(:id, :user_id, :name, :broad_type_id, :role, :approach, :spirit_max, :spirit_refresh, :regeneration_style, :character_has_powers, :item, :money, :allies, :item_description, :money_description, :allies_description, :knacks, :flaws, :stress_max)
+		params.require(:character).permit(:id, :user_id, :name, :broad_type_id, :campaign_id, :status, :role, :approach, :spirit_max, :spirit_refresh, :regeneration_style, :item, :money, :allies, :item_description, :money_description, :allies_description, :stress_max)
 	end
 end
