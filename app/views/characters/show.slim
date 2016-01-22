@@ -1,8 +1,8 @@
-table#character_sheet
+table#character_sheet width="100%"
 	tbody
-		tr colspan="2"
-			td
-				table
+		tr
+			td colspan="2"
+				table width="100%"
 					tr
 						th Name: 
 						td
@@ -65,10 +65,11 @@ table#character_sheet
 					dd
 						= @character.allies_description
 		tr
-			h3 Flaws
+			td colspan="2"
+				h3 Flaws
 
-			ul
-				- if @character.flaws.present?
-					- @character.flaws.each do |flaw|
-						li
-							= flaw.flaw
+				ul
+					- if @character.flaws.present?
+						- @character.flaws.each do |flaw|
+							li
+								= flaw.flaw

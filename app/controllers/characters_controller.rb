@@ -25,7 +25,7 @@ class CharactersController < ApplicationController
 		@character = Character.new(character_params)
 		@knacks = params[:character][:knacks]
 		@flaws = params[:character][:flaws]
-		@character_has_powers = params[:chacacter][:character_has_powers]
+		@character_has_powers = params[:character][:character_has_powers]
 		if @character.save!
 			@knacks.each do |knack|
 				@knack = Knack.new({knack: knack[:knack], character_id: @character.id})
@@ -52,8 +52,50 @@ class CharactersController < ApplicationController
 		@character = Character.find(params[:id])
 		@knacks = params[:character][:knacks]
 		@flaws = params[:character][:flaws]
-		@character_has_powers = params[:chacacter][:character_has_powers]
+		@character_has_powers = params[:character][:character_has_powers]
+		knack_ids = []
+		flaw_ids = []
+		power_ids = []
 		if @character.update_attributes!(character_params)
+			@knacks.each do |knack|
+				unless knack[:id].present?
+					@knack = Knack.new({knack: knack[:knack], character_id: @character.id})
+					knack_ids << @knack.id
+				else
+					knack_ids << knack[:id]
+				end
+			end
+			@flaws.each do |flaw|
+				unless flaw[:id].present?
+					@flaw = Flaw.new({flaw: flaw[:flaw], character_id: @character.id})
+					flaw_ids << flaw[:id]
+				else
+					flaw_ids << flaw[:id]
+				end
+			end
+			@character_has_powers.each do |power|
+				unless power[:id].present?
+					@power = CharacterHasPower.new({character_id: @character.id, power_id: power[:id]})
+					power_ids << @power.id
+				else
+					power_ids << power[:id]
+				end
+			end
+			@character.knacks.each do |knack|
+				unless knack_ids.include?(knack.id)
+					knack.delete
+				end
+			end
+			@character.flaws.each do |flaw|
+				unless flaw_ids.include?(flaw.id)
+					flaw.delete
+				end
+			end
+			@character.character_has_powers.each do |power|
+				unless power_ids.include?(power.id)
+					power.delete
+				end
+			end
 			flash[:success] = "Your character sheet was saved successfully."
 			redirect_to characters_path
 		else
