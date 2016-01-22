@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   root 'characters#index'
 
+  get 'api/characters/get_power/:id' => 'characters#get_power'
+
   resources :campaigns
   resources :characters
 

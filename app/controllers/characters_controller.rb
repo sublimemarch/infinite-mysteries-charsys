@@ -1,3 +1,5 @@
+require 'json'
+
 class CharactersController < ApplicationController
 	CHARACTER_STATUS = ['In Progress', 'Submitted', 'Approved', 'Active', 'Deceased', 'Inactive']
 	def get_status(status)
@@ -49,6 +51,11 @@ class CharactersController < ApplicationController
 		@character = Character.find(params[:id])
 		@character.delete
 		redirect_to characters_path
+	end
+
+	def get_power
+		@power = Power.find(params[:id])
+		render json: {name: @power.name, description: @power.description, requires_specification: @power.requires_specification, specification_name: @power.specification_name, tier: @power.tier, select_multiple: @power.select_multiple, select_max: @power.select_max}
 	end
 
 	private

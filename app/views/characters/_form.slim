@@ -39,13 +39,19 @@
 				td valign="top"
 					h3 Powers
 
-					p needs some kind of collection select
-					= fields_for :character_has_power do |power|
-						= collection_select :character_has_powers, :power_id, Power.all, :id, :name
+					= collection_select :power, :power_id, Power.all, :id, :name
+					= button_tag 'Add', id: 'add_power'
 
-						p todo: figure out a way to show specification field if required
+					ul#powers
 
-						p also figure out how to implement the select_max limit for powers that use it
+					div.template.powers
+						li
+							p.name Power Name
+							p.description Description
+							= hidden_field_tag "character[character_has_powers][][power_id]"
+							p.specification
+								= label_tag "Specification"
+								= text_field_tag "character[character_has_powers][][specification]"
 
 				td valign="top"
 					h3 Knacks
@@ -112,4 +118,21 @@
 			newItem.children('input[name="character[flaws][][flaw]"]').val(knackText);
 			jQuery('#flaws').append(newItem);
 			jQuery('#flaw').val("");
+		});
+
+		jQuery('#add_power').click(function(e) {
+			e.preventDefault();
+			var powerId = parseInt(jQuery('#power_power_id option:selected').val());
+			jQuery.ajax({
+				url: '/api/characters/get_power/'+powerId,
+				method: 'GET',
+				success: function(data) {
+					var newItem = jQuery('.template.powers').find('li').clone();
+					newItem.children('p.name').text(data['name']);
+					newItem.children('p.description').text(data['description']);
+					newItem.children('p.specification').children('label').text(data['specification_name']);
+					newItem.children('input[name="character[character_has_powers][][power_id]"]').val(powerId);
+					jQuery('#powers').append(newItem);
+				}
+			});
 		});
