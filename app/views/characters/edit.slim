@@ -3,5 +3,6 @@ h2
 
 = form_for @character, url: {action: 'update'} do |f|
 	= render partial: 'form', locals: {f: f}
+	= hidden_field :user_id, @character.user_id
 
 	= button_tag 'Save', type: 'submit'

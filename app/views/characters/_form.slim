@@ -79,7 +79,7 @@
 							- @character.knacks.each do |knack|
 								li
 									span
-										= knack.name
+										= knack.knack
 									= hidden_field_tag "character[knacks][][knack]", knack.knack
 									= hidden_field_tag "character[knacks][][id]", knack.id
 
@@ -116,7 +116,7 @@
 							- @character.flaws.each do |flaw|
 								li
 									span
-										= flaw.name
+										= flaw.flaw
 									= hidden_field_tag "character[flaws][][flaw]", flaw.flaw
 									= hidden_field_tag "character[flaws][][id]", flaw.id
 

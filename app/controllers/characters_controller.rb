@@ -28,13 +28,22 @@ class CharactersController < ApplicationController
 		@character_has_powers = params[:character][:character_has_powers]
 		if @character.save!
 			@knacks.each do |knack|
-				@knack = Knack.new({knack: knack[:knack], character_id: @character.id})
+				if knack[:knack].present?
+					@knack = Knack.new({knack: knack[:knack], character_id: @character.id})
+					@knack.save!
+				end
 			end
 			@flaws.each do |flaw|
-				@flaw = Flaw.new({flaw: flaw[:flaw], character_id: @character.id})
+				if flaw[:flaw].present?
+					@flaw = Flaw.new({flaw: flaw[:flaw], character_id: @character.id})
+					@flaw.save!
+				end
 			end
 			@character_has_powers.each do |power|
-				@power = CharacterHasPower.new({character_id: @character.id, power_id: power[:id]})
+				if power[:power_id].present?
+					@power = CharacterHasPower.new({character_id: @character.id, power_id: power[:power_id]})
+					@power.save!
+				end
 			end
 			flash[:success] = "Your character sheet was saved successfully."
 			redirect_to characters_path
@@ -58,27 +67,36 @@ class CharactersController < ApplicationController
 		power_ids = []
 		if @character.update_attributes!(character_params)
 			@knacks.each do |knack|
-				unless knack[:id].present?
-					@knack = Knack.new({knack: knack[:knack], character_id: @character.id})
-					knack_ids << @knack.id
-				else
-					knack_ids << knack[:id]
+				if knack[:knack].present?
+					unless knack[:id].present?
+						@knack = Knack.new({knack: knack[:knack], character_id: @character.id})
+						@knack.save!
+						knack_ids << @knack.id
+					else
+						knack_ids << knack[:id].to_i
+					end
 				end
 			end
 			@flaws.each do |flaw|
-				unless flaw[:id].present?
-					@flaw = Flaw.new({flaw: flaw[:flaw], character_id: @character.id})
-					flaw_ids << flaw[:id]
-				else
-					flaw_ids << flaw[:id]
+				if flaw[:flaw].present?
+					unless flaw[:id].present?
+						@flaw = Flaw.new({flaw: flaw[:flaw], character_id: @character.id})
+						@flaw.save!
+						flaw_ids << @flaw.id
+					else
+						flaw_ids << flaw[:id].to_i
+					end
 				end
 			end
 			@character_has_powers.each do |power|
-				unless power[:id].present?
-					@power = CharacterHasPower.new({character_id: @character.id, power_id: power[:id]})
-					power_ids << @power.id
-				else
-					power_ids << power[:id]
+				if power[:power_id].present?
+					unless power[:id].present?
+						@power = CharacterHasPower.new({character_id: @character.id, power_id: power[:power_id]})
+						@power.save!
+						power_ids << @power.id
+					else
+						power_ids << power[:id].to_i
+					end
 				end
 			end
 			@character.knacks.each do |knack|
