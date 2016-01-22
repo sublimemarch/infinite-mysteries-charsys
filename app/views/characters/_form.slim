@@ -96,8 +96,20 @@
 	javascript:
 		jQuery('#add_knack').click(function(e) {
 			e.preventDefault();
+			var knackText = jQuery('#knack').val();
+			var newItem = jQuery('.template.knacks').find('li').clone();
+			newItem.find('span').text(knackText);
+			newItem.children('input[name="character[knacks][][knack]"]').val(knackText);
+			jQuery('#knacks').append(newItem);
+			jQuery('#knack').val("");
 		});
 
 		jQuery('#add_flaw').click(function(e) {
 			e.preventDefault();
+			var knackText = jQuery('#flaw').val();
+			var newItem = jQuery('.template.flaws').find('li').clone();
+			newItem.find('span').text(knackText);
+			newItem.children('input[name="character[flaws][][flaw]"]').val(knackText);
+			jQuery('#flaws').append(newItem);
+			jQuery('#flaw').val("");
 		});
