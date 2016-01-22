@@ -10,6 +10,10 @@
 								= f.hidden_field :status
 						tr
 							td colspan="2"
+								= label_tag :campaign
+								= collection_select :character, :campaign_id, Campaign.all, :id, :name
+						tr
+							td colspan="2"
 								= label_tag :broad_type
 								= collection_select :character, :broad_type_id, BroadType.all, :id, :name
 						tr
@@ -46,9 +50,17 @@
 				td valign="top"
 					h3 Knacks
 					
-					= fields_for :kack do |knack|
-						= label_tag :knack
-						= knack.text_field :knack
+					= label_tag :knack
+					= text_field_tag :knack
+					= button_tag "Add", type: 'submit', id: 'add_knack'
+
+					ul#knacks
+
+					div.template.knacks
+						li
+							span Knack name
+							= hidden_field_tag "character[knacks][][knack]"
+							= hidden_field_tag "character[knacks][][id]"
 
 					h3 Backgrounds
 
@@ -68,6 +80,24 @@
 				td colspan="2"
 					h3 Flaws
 
-					= fields_for :flaw do |flaw|
-						= label_tag :flaw
-						= flaw.text_field :flaw
+					= label_tag :flaw
+					= text_field_tag :flaw
+					= button_tag "Add", type: 'submit', id: 'add_flaw'
+
+					ul#flaws
+
+					div.template.flaws
+						li
+							span Flaw name
+							= hidden_field_tag "character[flaws][][flaw]"
+							= hidden_field_tag "character[flaws][][id]"
+
+
+	javascript:
+		jQuery('#add_knack').click(function(e) {
+			e.preventDefault();
+		});
+
+		jQuery('#add_flaw').click(function(e) {
+			e.preventDefault();
+		});

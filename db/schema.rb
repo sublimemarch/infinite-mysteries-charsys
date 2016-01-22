@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20160121194239) do
   create_table "characters", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
-    t.integer  "broad_type_id"
+    t.integer  "broad_type"
     t.string   "role"
     t.integer  "approach"
     t.integer  "spirit_max"
@@ -53,9 +53,8 @@ ActiveRecord::Schema.define(version: 20160121194239) do
     t.text     "money_description"
     t.text     "allies_description"
     t.integer  "stress_max"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "status",             default: 0
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "flaws", force: :cascade do |t|
