@@ -1,3 +1,5 @@
+h2 Character: #{@character.name}
+
 table#character_sheet width="100%"
 	tbody
 		tr
@@ -5,28 +7,22 @@ table#character_sheet width="100%"
 				table width="100%"
 					tr
 						th Name: 
-						td
-							= @character.name
+						td #{@character.name}
 					tr
 						th Broad Type: 
-						td
-							= @character.broad_type.name
+						td #{@character.broad_type.name}
 					tr
 						th Role: 
-						td
-							= @character.role
+						td #{@character.role}
 					tr
 						th Approach: 
-						td
-							= @character.approach
+						td #{@character.approach}
 					tr
 						th Spirit: 
-						td
-							= "#{@character.spirit_max} / #{@character.spirit_refresh}"
+						td #{@character.spirit_max} / #{@character.spirit_refresh}
 					tr
 						th Regeneration Style
-						td
-							= @character.regeneration_style
+						td #{@character.regeneration_style}
 		tr
 			td
 				h3 Powers
@@ -38,32 +34,24 @@ table#character_sheet width="100%"
 								= power.power.name
 								- if power.power.requires_specification
 									= " (#{power.specification})"
-							dd
-								= power.power.description
+							dd #{power.power.description}
 
 			td
 				h3 Knacks
 				ul
 					- if @character.knacks.present?
 						- @character.knacks.each do |knack|
-							li
-								= knack.knack
+							li #{knack.knack}
 
 				h3 Backgrounds
 
 				dl
-					dt
-						= "Item #{@character.item}"
-					dd
-						= @character.item_description
-					dt
-						= "Money #{@character.money}"
-					dd
-						= @character.money_description
-					dt
-						= "Item #{@character.allies}"
-					dd
-						= @character.allies_description
+					dt Item #{@character.item}
+					dd #{@character.item_description}
+					dt Money #{@character.money}
+					dd #{@character.money_description}
+					dt Item #{@character.allies}
+					dd #{@character.allies_description}
 		tr
 			td colspan="2"
 				h3 Flaws
@@ -71,5 +59,4 @@ table#character_sheet width="100%"
 				ul
 					- if @character.flaws.present?
 						- @character.flaws.each do |flaw|
-							li
-								= flaw.flaw
+							li #{flaw.flaw}

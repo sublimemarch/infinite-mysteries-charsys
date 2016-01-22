@@ -41,7 +41,7 @@ class CharactersController < ApplicationController
 			end
 			@character_has_powers.each do |power|
 				if power[:power_id].present?
-					@power = CharacterHasPower.new({character_id: @character.id, power_id: power[:power_id]})
+					@power = CharacterHasPower.new({character_id: @character.id, power_id: power[:power_id], specification: power[:specification]})
 					@power.save!
 				end
 			end
@@ -91,11 +91,13 @@ class CharactersController < ApplicationController
 			@character_has_powers.each do |power|
 				if power[:power_id].present?
 					unless power[:id].present?
-						@power = CharacterHasPower.new({character_id: @character.id, power_id: power[:power_id]})
+						@power = CharacterHasPower.new({character_id: @character.id, power_id: power[:power_id], specification: power[:specification]})
 						@power.save!
 						power_ids << @power.id
 					else
-						power_ids << power[:id].to_i
+						@power = CharacterHasPower.find(power[:id])
+						@power.update_attributes!({specification: power[:specification]})
+						power_ids << @power.id
 					end
 				end
 			end
