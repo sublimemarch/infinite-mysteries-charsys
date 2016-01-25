@@ -55,6 +55,9 @@ class CharactersController < ApplicationController
 
 	def edit
 		@character = Character.find(params[:id])
+		unless (@character.status == 0 and @character.user == current_user) or (@character.campaign.users.include?(current_user))
+			redirect_to :root
+		end
 	end
 
 	def update

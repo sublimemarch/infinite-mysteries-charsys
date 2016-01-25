@@ -6,6 +6,7 @@ table#characters_table width="100%"
       th Name
       th Broad Type
       th Role
+      th Status
       th  
       th  
   tbody
@@ -17,14 +18,16 @@ table#characters_table width="100%"
       - @characters.each do |character|
         tr
           td
-            = link_to character.name, character_path()
+            = link_to character.name, character_path(character)
           td
             = character.broad_type.name
           td
             = character.role
           td
+            = get_status(character.status)
+          td
             = link_to "Edit", edit_character_path(character)
           td
-            = form_for campaign, url: "/characters/#{character.id}", method: 'DELETE' do |f|
+            = form_for :character, url: "/characters/#{character.id}", method: 'DELETE' do |f|
               = f.hidden_field :id
               = button_tag "Delete", type: 'submit'
