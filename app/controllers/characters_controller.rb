@@ -18,7 +18,7 @@ class CharactersController < ApplicationController
 	end
 
 	def new
-		@character = Character.new
+		@character = Character.new({campaign_id: params[:character][:campaign_id]})
 	end
 
 	def create
@@ -141,6 +141,6 @@ class CharactersController < ApplicationController
 	private
 
 	def character_params
-		params.require(:character).permit(:id, :user_id, :name, :broad_type_id, :campaign_id, :status, :role, :approach, :spirit_max, :spirit_refresh, :regeneration_style, :item, :money, :allies, :item_description, :money_description, :allies_description, :stress_max)
+		params.require(:character).permit(:id, :user_id, :name, :broad_type_id, :campaign_id, :status, :role, :approach_id, :spirit_max, :spirit_refresh, :regeneration_style, :item, :money, :allies, :item_description, :money_description, :allies_description, :stress_max)
 	end
 end
