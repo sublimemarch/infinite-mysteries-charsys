@@ -9,6 +9,7 @@ h2 Questionnaire
 					= text_field_tag "questionnaire[][question]", question.question
 					= hidden_field_tag "questionnaire[][id]", question.id
 					= hidden_field_tag "questionnaire[][order]", question.order, class: 'order-field'
+					i.fa.fa-minus-circle.delete
 
 	div.template
 		li
@@ -37,4 +38,8 @@ javascript:
 			var $newItem = jQuery('.template').children().clone();
 			jQuery('#questionnaire').append($newItem);
 		});
+
+		jQuery('.delete').click(function() {
+			$(this).parent().remove();
+		})
 	});

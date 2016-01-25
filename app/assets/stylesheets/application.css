@@ -15,8 +15,18 @@
  *= require foundation_and_overrides
  *= require token-input
  *= require token-input-facebook
+ *= require font-awesome.min
  */
 
 .template {
 	display: none;
+}
+
+.fa.delete {
+	color: #600;
+	cursor: pointer;
+}
+
+.fa.delete:hover {
+	color: #900;
 }
