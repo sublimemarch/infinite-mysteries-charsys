@@ -23,7 +23,7 @@
 						tr
 							td colspan="2"
 								= label_tag :approach
-								= f.text_field :approach
+								= collection_select :character, :approach_id, Approach.all, :id, :name
 						tr
 							td
 								= label_tag :spirit_max
