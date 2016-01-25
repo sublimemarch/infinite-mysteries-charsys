@@ -54,6 +54,7 @@
 										p.specification
 											= label_tag power.power.specification_name
 											= text_field_tag "character[character_has_powers][][specification]", power.specification
+									i.fa.fa-minus-circle.delete
 
 					div.template.powers
 						li
@@ -64,6 +65,7 @@
 							p.specification
 								= label_tag "Specification"
 								= text_field_tag "character[character_has_powers][][specification]"
+							i.fa.fa-minus-circle.delete
 
 				td valign="top"
 					h3 Knacks
@@ -79,12 +81,14 @@
 									span #{knack.knack}
 									= hidden_field_tag "character[knacks][][knack]", knack.knack
 									= hidden_field_tag "character[knacks][][id]", knack.id
+									i.fa.fa-minus-circle.delete
 
 					div.template.knacks
 						li
 							span Knack name
 							= hidden_field_tag "character[knacks][][knack]"
 							= hidden_field_tag "character[knacks][][id]"
+							i.fa.fa-minus-circle.delete
 
 					h3 Backgrounds
 
@@ -115,6 +119,7 @@
 									span #{flaw.flaw}
 									= hidden_field_tag "character[flaws][][flaw]", flaw.flaw
 									= hidden_field_tag "character[flaws][][id]", flaw.id
+									i.fa.fa-minus-circle.delete
 
 
 					div.template.flaws
@@ -122,6 +127,7 @@
 							span Flaw name
 							= hidden_field_tag "character[flaws][][flaw]"
 							= hidden_field_tag "character[flaws][][id]"
+							i.fa.fa-minus-circle.delete
 
 
 	javascript:
@@ -160,4 +166,8 @@
 					jQuery('#powers').append(newItem);
 				}
 			});
+		});
+
+		jQuery('.delete').click(function() {
+			$(this).parent().remove();
 		});
