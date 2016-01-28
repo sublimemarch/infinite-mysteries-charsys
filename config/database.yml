@@ -80,6 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: infinite-mysteries-charsys_production
-  username: infinite-mysteries-charsys
-  password: <%= ENV['INFINITE-MYSTERIES-CHARSYS_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE_URL'] %>
