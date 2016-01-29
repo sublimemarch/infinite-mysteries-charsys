@@ -1,5 +1,7 @@
 class Character < ActiveRecord::Base
 	belongs_to :broad_type
+	belongs_to :campaign
+	belongs_to :user
 	has_many :character_has_powers
 	has_many :powers, through: :character_has_powers
 	has_many :knacks
