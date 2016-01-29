@@ -32,7 +32,7 @@ table#characters_table width="100%"
               = f.hidden_field :id
               = button_tag "Delete", type: 'submit'
 
-= form_for :character, url: {action: 'new'}, method: 'GET' do |f|
-  = label_tag :campaign
-  = collection_select :character, :campaign_id, Campaign.all, :id, :name
-  = button_tag "Create Character", type: 'submit'
+/ = form_for :character, url: {action: 'new'}, method: 'GET' do |f|
+/   = label_tag :campaign
+/   = collection_select :character, :campaign_id, Campaign.all, :id, :name
+/   = button_tag "Create Character", type: 'submit'
