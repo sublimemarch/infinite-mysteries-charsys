@@ -16,9 +16,16 @@ Rails.application.routes.draw do
   #   resources :products
 
   root 'characters#index'
+  
+  get '/api/campaigns/find_storyteller' => 'campaigns#find_storyteller'
+  get '/api/campaigns/get_storytellers' => 'campaigns#get_storytellers'
 
   resources :campaigns
   resources :characters
+
+  get 'campaigns/:id/questionnaire' => 'campaigns#questionnaire'
+  post 'campaigns/:id/questionnaire' => 'campaigns#update_questionnaire'
+
 
   # Example resource route with options:
   #   resources :products do
