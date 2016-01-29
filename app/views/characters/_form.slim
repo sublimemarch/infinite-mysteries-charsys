@@ -131,43 +131,63 @@
 
 
 	javascript:
-		jQuery('#add_knack').click(function(e) {
+		$('#add_knack').click(function(e) {
 			e.preventDefault();
-			var knackText = jQuery('#knack').val();
-			var newItem = jQuery('.template.knacks').find('li').clone();
+			var knackText = $('#knack').val();
+			var newItem = $('.template.knacks').find('li').clone();
 			newItem.find('span').text(knackText);
 			newItem.children('input[name="character[knacks][][knack]"]').val(knackText);
-			jQuery('#knacks').append(newItem);
-			jQuery('#knack').val("");
+			$('#knacks').append(newItem);
+			$('#knack').val("");
+			validateStats();
 		});
 
-		jQuery('#add_flaw').click(function(e) {
+		$('#add_flaw').click(function(e) {
 			e.preventDefault();
-			var knackText = jQuery('#flaw').val();
-			var newItem = jQuery('.template.flaws').find('li').clone();
+			var knackText = $('#flaw').val();
+			var newItem = $('.template.flaws').find('li').clone();
 			newItem.find('span').text(knackText);
 			newItem.children('input[name="character[flaws][][flaw]"]').val(knackText);
-			jQuery('#flaws').append(newItem);
-			jQuery('#flaw').val("");
+			$('#flaws').append(newItem);
+			$('#flaw').val("");
+			validateStats();
 		});
 
-		jQuery('#add_power').click(function(e) {
+		$('#add_power').click(function(e) {
 			e.preventDefault();
-			var powerId = parseInt(jQuery('#power_power_id option:selected').val());
-			jQuery.ajax({
+			var powerId = parseInt($('#power_power_id option:selected').val());
+			$.ajax({
 				url: '/api/characters/get_power/'+powerId,
 				method: 'GET',
 				success: function(data) {
-					var newItem = jQuery('.template.powers').find('li').clone();
+					var newItem = $('.template.powers').find('li').clone();
 					newItem.children('p.name').text(data['name']);
 					newItem.children('p.description').text(data['description']);
 					newItem.children('p.specification').children('label').text(data['specification_name']);
 					newItem.children('input[name="character[character_has_powers][][power_id]"]').val(powerId);
-					jQuery('#powers').append(newItem);
+					$('#powers').append(newItem);
 				}
 			});
+			validateStats();
 		});
 
-		jQuery('.delete').click(function() {
+		$('.delete').click(function() {
 			$(this).parent().remove();
+			validateStats();
 		});
+
+		$('#character_item, #character_money, #character_allies, #character_broad_type').change(function () {
+			validateStats();
+		});
+
+		function validateStats() {
+			var formData = $('form').serialize();
+			$.ajax({
+				url: '/api/characters/validate_stats',
+				method: 'post',
+				data: formData,
+				success: function(data) {
+					console.log(data);
+				}
+			})
+		}
