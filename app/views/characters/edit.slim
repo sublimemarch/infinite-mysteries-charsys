@@ -10,16 +10,17 @@ h2
 		= button_tag 'Save and Submit', type: 'submit', id: 'submit_character', 'data-status': 1
 	- elsif @character.campaign.users.include?(current_user)
 		= button_tag 'Reopen', type: 'submit', id: 'reopen_character', 'data-status': 0
-		- if @character.status == 1
-			= button_tag 'Approve', type: 'submit', id: 'approve_character', 'data-status': 2
-			= button_tag 'Approve and Activate', type: 'submit', id: 'activate_character', 'data-status': 3
-		- elsif @character.status == 2
-			= button_tag 'Activate', type: 'submit', id: 'activate_character', 'data-status': 3
-		- elsif @character_status == 3
-			= button_tag 'Deactivate', type: 'submit', id: 'deactivate_character', 'data-status': 5
-			= button_tag 'KILL', type: 'submit', id: 'kill_character', 'data-status': 4
-		- elsif @character_status >= 4
-			= button_tag 'Reactivate', type: 'submit', id: 'reactivate_character', 'data-status': 3
+		- case @character.status
+			- when 1
+				= button_tag 'Approve', type: 'submit', id: 'approve_character', 'data-status': 2
+				= button_tag 'Approve and Activate', type: 'submit', id: 'activate_character', 'data-status': 3
+			- when 2
+				= button_tag 'Activate', type: 'submit', id: 'activate_character', 'data-status': 3
+			- when 3
+				= button_tag 'Deactivate', type: 'submit', id: 'deactivate_character', 'data-status': 5
+				= button_tag 'KILL', type: 'submit', id: 'kill_character', 'data-status': 4
+			- when 4..5
+				= button_tag 'Reactivate', type: 'submit', id: 'reactivate_character', 'data-status': 3
 
 
 javascript: 
