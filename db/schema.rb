@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160119032540) do
+ActiveRecord::Schema.define(version: 20160125165645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "approaches", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "broad_types", force: :cascade do |t|
     t.string   "name"
@@ -40,9 +46,8 @@ ActiveRecord::Schema.define(version: 20160119032540) do
   create_table "characters", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
-    t.integer  "broad_type"
     t.string   "role"
-    t.integer  "approach"
+    t.integer  "approach_id"
     t.integer  "spirit_max"
     t.integer  "spirit_refresh"
     t.string   "regeneration_style"
@@ -53,8 +58,11 @@ ActiveRecord::Schema.define(version: 20160119032540) do
     t.text     "money_description"
     t.text     "allies_description"
     t.integer  "stress_max"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "status",             default: 0
+    t.integer  "campaign_id"
+    t.integer  "broad_type_id"
   end
 
   create_table "flaws", force: :cascade do |t|
@@ -81,6 +89,22 @@ ActiveRecord::Schema.define(version: 20160119032540) do
     t.string   "specification_name",     default: ""
     t.boolean  "select_multiple",        default: false
     t.integer  "select_max",             default: 0
+  end
+
+  create_table "questionnaire_answers", force: :cascade do |t|
+    t.integer  "character_id"
+    t.integer  "questionnaire_item_id"
+    t.text     "answer"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "questionnaire_items", force: :cascade do |t|
+    t.integer  "campaign_id"
+    t.string   "question"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "order"
   end
 
   create_table "user_administers_campaigns", force: :cascade do |t|

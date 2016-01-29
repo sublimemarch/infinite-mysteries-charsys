@@ -16,18 +16,18 @@ Rails.application.routes.draw do
   #   resources :products
 
   root 'characters#index'
+  
+  get '/api/campaigns/find_storyteller' => 'campaigns#find_storyteller'
+  get '/api/campaigns/get_storytellers' => 'campaigns#get_storytellers'
+
+  get 'api/characters/get_power/:id' => 'characters#get_power'
 
   resources :campaigns
   resources :characters
 
-  get 'login' => 'session#new'
-  post 'login' => 'session#create'
-  get 'logout' => 'session#destroy'
+  get 'campaigns/:id/questionnaire' => 'campaigns#questionnaire'
+  post 'campaigns/:id/questionnaire' => 'campaigns#update_questionnaire'
 
-  get 'register' => 'user#new'
-  post 'register' => 'user#create'
-  get 'settings' => 'user#edit'
-  post 'delete_account' => 'user#destroy'
 
   # Example resource route with options:
   #   resources :products do

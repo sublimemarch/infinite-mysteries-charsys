@@ -1,0 +1,7 @@
+= label_tag :name
+= f.text_field :name
+= label_tag :build_points
+= f.number_field :build_points
+= fields_for :user_administers_campaign do |user|
+	= label_tag :user_administers_campaign, "Storytellers"
+	= user.text_field :user_id

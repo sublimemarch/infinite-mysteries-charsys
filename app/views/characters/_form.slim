@@ -1,0 +1,173 @@
+	table#character_sheet width="100%"
+		tbody
+			tr
+				td colspan="2"
+					table width="100%"
+						tr
+							td colspan="2"
+								= label_tag :name
+								= f.text_field :name
+								= f.hidden_field :status
+						tr
+							td colspan="2"
+								= label_tag :campaign
+								= collection_select :character, :campaign_id, Campaign.all, :id, :name
+						tr
+							td colspan="2"
+								= label_tag :broad_type
+								= collection_select :character, :broad_type_id, BroadType.all, :id, :name
+						tr
+							td colspan="2"
+								= label_tag :role
+								= f.text_field :role
+						tr
+							td colspan="2"
+								= label_tag :approach
+								= collection_select :character, :approach_id, Approach.all, :id, :name
+						tr
+							td
+								= label_tag :spirit_max
+								= f.text_field :spirit_max
+							td
+								= label_tag :spirit_refresh
+								= f.text_field :spirit_refresh
+						tr
+							td colspan="2"
+								= label_tag :regeneration_style
+								= f.text_field :regeneration_style
+			tr
+				td valign="top"
+					h3 Powers
+
+					= collection_select :power, :power_id, Power.all, :id, :name
+					= button_tag 'Add', id: 'add_power'
+
+					ul#powers
+						- if @character.character_has_powers.present?
+							- @character.character_has_powers.each do |power|
+								li
+									p.name #{power.power.name}
+									p.description #{power.power.description}
+									= hidden_field_tag "character[character_has_powers][][power_id]", power.power.id
+									= hidden_field_tag "character[character_has_powers][][id]", power.id
+									- if power.power.requires_specification
+										p.specification
+											= label_tag power.power.specification_name
+											= text_field_tag "character[character_has_powers][][specification]", power.specification
+									i.fa.fa-minus-circle.delete
+
+					div.template.powers
+						li
+							p.name Power Name
+							p.description Description
+							= hidden_field_tag "character[character_has_powers][][power_id]"
+							= hidden_field_tag "character[character_has_powers][][id]"
+							p.specification
+								= label_tag "Specification"
+								= text_field_tag "character[character_has_powers][][specification]"
+							i.fa.fa-minus-circle.delete
+
+				td valign="top"
+					h3 Knacks
+					
+					= label_tag :knack
+					= text_field_tag :knack
+					= button_tag "Add", type: 'submit', id: 'add_knack'
+
+					ul#knacks
+						- if @character.knacks.present?
+							- @character.knacks.each do |knack|
+								li
+									span #{knack.knack}
+									= hidden_field_tag "character[knacks][][knack]", knack.knack
+									= hidden_field_tag "character[knacks][][id]", knack.id
+									i.fa.fa-minus-circle.delete
+
+					div.template.knacks
+						li
+							span Knack name
+							= hidden_field_tag "character[knacks][][knack]"
+							= hidden_field_tag "character[knacks][][id]"
+							i.fa.fa-minus-circle.delete
+
+					h3 Backgrounds
+
+					= label_tag :item
+					= f.text_field :item
+					= label_tag :item_description
+					= f.text_area :item_description
+					= label_tag :money
+					= f.text_field :money
+					= label_tag :money_description
+					= f.text_area :money_description
+					= label_tag :allies
+					= f.text_field :allies
+					= label_tag :allies_description
+					= f.text_area :allies_description
+			tr
+				td colspan="2"
+					h3 Flaws
+
+					= label_tag :flaw
+					= text_field_tag :flaw
+					= button_tag "Add", type: 'submit', id: 'add_flaw'
+
+					ul#flaws
+						- if @character.flaws.present?
+							- @character.flaws.each do |flaw|
+								li
+									span #{flaw.flaw}
+									= hidden_field_tag "character[flaws][][flaw]", flaw.flaw
+									= hidden_field_tag "character[flaws][][id]", flaw.id
+									i.fa.fa-minus-circle.delete
+
+
+					div.template.flaws
+						li
+							span Flaw name
+							= hidden_field_tag "character[flaws][][flaw]"
+							= hidden_field_tag "character[flaws][][id]"
+							i.fa.fa-minus-circle.delete
+
+
+	javascript:
+		jQuery('#add_knack').click(function(e) {
+			e.preventDefault();
+			var knackText = jQuery('#knack').val();
+			var newItem = jQuery('.template.knacks').find('li').clone();
+			newItem.find('span').text(knackText);
+			newItem.children('input[name="character[knacks][][knack]"]').val(knackText);
+			jQuery('#knacks').append(newItem);
+			jQuery('#knack').val("");
+		});
+
+		jQuery('#add_flaw').click(function(e) {
+			e.preventDefault();
+			var knackText = jQuery('#flaw').val();
+			var newItem = jQuery('.template.flaws').find('li').clone();
+			newItem.find('span').text(knackText);
+			newItem.children('input[name="character[flaws][][flaw]"]').val(knackText);
+			jQuery('#flaws').append(newItem);
+			jQuery('#flaw').val("");
+		});
+
+		jQuery('#add_power').click(function(e) {
+			e.preventDefault();
+			var powerId = parseInt(jQuery('#power_power_id option:selected').val());
+			jQuery.ajax({
+				url: '/api/characters/get_power/'+powerId,
+				method: 'GET',
+				success: function(data) {
+					var newItem = jQuery('.template.powers').find('li').clone();
+					newItem.children('p.name').text(data['name']);
+					newItem.children('p.description').text(data['description']);
+					newItem.children('p.specification').children('label').text(data['specification_name']);
+					newItem.children('input[name="character[character_has_powers][][power_id]"]').val(powerId);
+					jQuery('#powers').append(newItem);
+				}
+			});
+		});
+
+		jQuery('.delete').click(function() {
+			$(this).parent().remove();
+		});
