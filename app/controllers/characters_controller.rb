@@ -139,14 +139,50 @@ class CharactersController < ApplicationController
 	end
 
 	def validate_stats
-		@character = Character.find(params[:id])
-		tier1 = @character.powers.where({tier: 1}).count * 3
-		tier2 = @character.powers.where({tier: 2}).count * 5
-		backgrounds = (@character.item + @character.money + @character.allies - 2, 0).min
-		knacks = (@character.knacks.length - 3, 0).min
+		broad_type = BroadType.find(params[:character][:broad_type_id])
+		powers = params[:character][:character_has_powers]
+		tier1 = 0
+		tier2 = 0;
+		powers.each do |power|
+			power_rec = Power.find(power[:power_id])
+			if power_rec.tier == 1
+				tier1 += 1
+			else
+				tier2 += 1
+			end
+		end
+		backgrounds = params[:character][:item].to_i + params[:character][:money].to_i + params[:character][:allies].to_i
+		background_points = [background_points - 2, 0].min
+		knacks = params[:character][:knacks].length
+		knack_points = [knacks - 3, 0].min
+		if broad_type.name == "Mortal"
+			if knacks <= 8 && knacks >= 3
+				knacks_ok = true
+				knacks_error = 0
+			else
+				knacks_ok = false
+				if knacks > 8
+					knacks_error = knacks - 8
+				else
+					knacks_error = 3 - knacks
+				end
+			end
+		else
+			if knacks <= 6 && knacks >= 3
+				knacks_ok = true
+				knacks_error = 0
+			else
+				knacks_ok = false
+				if knacks > 6
+					knacks_error = knacks - 6
+				else
+					knacks_error = 3 - knacks
+				end
+			end
+		end
 		respond_to do |format|
 			format.json {
-				render json: {build_points: tier1 + tier2 + backgrounds + knacks, knacks_ok: knacks >= 3, backgrounds_ok: backgrounds >= 2}
+				render json: {build_points: tier1*3 + tier2*5 + background_points + knack_points, knacks_ok: knacks_ok, knacks_error: knacks_error, backgrounds_ok: backgrounds >= 2}
 			}
 		end
 	end
