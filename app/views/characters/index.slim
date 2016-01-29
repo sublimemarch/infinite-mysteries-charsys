@@ -1,28 +1,38 @@
-h1 Characters
+h2 Characters
 
-table#characters_table
+table#characters_table width="100%"
   thead
     tr
       th Name
       th Broad Type
       th Role
-      th " "
-      th " "
+      th Status
+      th  
+      th  
   tbody
     - unless @characters.present?
       tr
         td colspan="5" align="center"
-          No characters to display.
+          = "No characters to display."
     - else
       - @characters.each do |character|
         tr
           td
-            = @character.name
+            = link_to character.name, character_path(character)
           td
-            = @character.broad_type.name
+            = character.broad_type.name
           td
-            = @character.role
+            = character.role
           td
-            = link_to "Edit", edit_character_path(@character)
+            = get_status(character.status)
           td
-            = link_to "Delete", delete_character_path(@character)
+            = link_to "Edit", edit_character_path(character)
+          td
+            = form_for :character, url: "/characters/#{character.id}", method: 'DELETE' do |f|
+              = f.hidden_field :id
+              = button_tag "Delete", type: 'submit'
+
+= form_for :character, url: {action: 'new'}, method: 'GET' do |f|
+  = label_tag :campaign
+  = collection_select :character, :campaign_id, Campaign.all, :id, :name
+  = button_tag "Create Character", type: 'submit'

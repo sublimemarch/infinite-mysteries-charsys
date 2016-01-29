@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   get '/api/campaigns/find_storyteller' => 'campaigns#find_storyteller'
   get '/api/campaigns/get_storytellers' => 'campaigns#get_storytellers'
 
+  get 'api/characters/get_power/:id' => 'characters#get_power'
+
   resources :campaigns
   resources :characters
 
