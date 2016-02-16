@@ -4,7 +4,7 @@ class HomeController < ApplicationController
       @campaigns = current_user.campaigns
       @characters = current_user.characters
     else
-      redirect_to login_path
+      redirect_to new_user_session_path
     end
   end
 
