@@ -1,3 +1,5 @@
+- content_for :title, "Character: #{@character.name}"
+
 h2 Character: #{@character.name}
 
 table#character_sheet width="100%"
@@ -16,7 +18,7 @@ table#character_sheet width="100%"
 						td #{@character.role}
 					tr
 						th Approach: 
-						td #{@character.approach}
+						td #{@character.approach.name}
 					tr
 						th Spirit: 
 						td #{@character.spirit_max} / #{@character.spirit_refresh}
