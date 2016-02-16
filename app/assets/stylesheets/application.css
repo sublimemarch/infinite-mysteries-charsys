@@ -30,3 +30,18 @@
 .fa.delete:hover {
 	color: #900;
 }
+
+.wound {
+	display: block;
+	border: 1px #000 solid;
+	height: 30px;
+	position: relative;
+	margin-bottom: 25px;
+}
+
+.wound span {
+	position: absolute;
+	font-size: 10px;
+	top: -15px;
+	right: 5px;
+}
