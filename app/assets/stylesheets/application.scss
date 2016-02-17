@@ -1,0 +1,42 @@
+@import "utilities/*";
+@import "foundation_and_overrides";
+@import "token-input";
+@import "token-input-facebook";
+@import "font-awesome.min";
+@import "components/*";
+
+.template {
+	display: none;
+}
+
+.fa.delete {
+	color: #600;
+	cursor: pointer;
+}
+
+.fa.delete:hover {
+	color: #900;
+}
+
+.wound {
+	display: block;
+	border: 1px #000 solid;
+	height: 30px;
+	position: relative;
+	margin-bottom: 25px;
+}
+
+.wound span {
+	position: absolute;
+	font-size: 10px;
+	top: -15px;
+	right: 5px;
+}
+
+body {
+  background: url(foggy_forest.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}

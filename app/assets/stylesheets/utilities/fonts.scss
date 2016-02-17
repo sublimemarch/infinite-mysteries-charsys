@@ -1,0 +1,19 @@
+$oswald: 'Oswald';
+$pt-mono: 'PT Mono';
+
+$body-font: $pt-mono;
+$header-font: $oswald;
+
+h2 {
+  color: $dark-purple;
+  text-shadow: 3px 3px $orange;
+  font-size: 72px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+
+  .fa {
+    text-shadow: none;
+    font-size: 28px;
+    vertical-align: middle;
+  }
+}
