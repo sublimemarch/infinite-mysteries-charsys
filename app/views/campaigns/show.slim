@@ -1,3 +1,5 @@
+- content_for :title, "#{@campaign.name}: List of Characters"
+
 h2 #{@campaign.name}: List of Characters
 
 = link_to "Edit Questionnaire", "/campaigns/#{params[:id]}/questionnaire"

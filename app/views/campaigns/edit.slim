@@ -1,3 +1,5 @@
+- content_for :title, "Edit Campaign: #{@campaign.name}"
+
 = form_for @campaign, url: {action: 'update'} do |f|
 	= render partial: 'form', locals: {f: f}
 	= button_tag "Save", type: 'submit'
