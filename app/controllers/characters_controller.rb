@@ -6,9 +6,9 @@ class CharactersController < ApplicationController
 		return CHARACTER_STATUS[status]
 	end
 	helper_method :get_status
-	
+
 	before_action :authenticate_user!
-	
+
 	def index
 		@characters = Character.where(user_id: current_user)
 	end
@@ -18,7 +18,7 @@ class CharactersController < ApplicationController
 	end
 
 	def new
-		@character = Character.new({campaign_id: params[:character][:campaign_id]})
+		@character = Character.new({campaign_id: 1})
 	end
 
 	def create
@@ -46,7 +46,7 @@ class CharactersController < ApplicationController
 				end
 			end
 			flash[:success] = "Your character sheet was saved successfully."
-			redirect_to characters_path
+			redirect_to root_path
 		else
 			flash[:error] = "There was an error saving your character sheet."
 			redirect_to new_character_path
@@ -120,7 +120,7 @@ class CharactersController < ApplicationController
 				end
 			end
 			flash[:success] = "Your character sheet was saved successfully."
-			redirect_to characters_path
+			redirect_to character_path(@character)
 		else
 			flash[:error] = "There was an error saving your character sheet."
 			redirect_to edit_character_path(@character)
@@ -130,7 +130,7 @@ class CharactersController < ApplicationController
 	def destroy
 		@character = Character.find(params[:id])
 		@character.delete
-		redirect_to characters_path
+		redirect_to root_path
 	end
 
 	def get_power

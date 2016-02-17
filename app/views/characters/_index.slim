@@ -6,6 +6,8 @@ table#characters_table width="100%"
     th Broad Type
     th Role
     th Status
+    th
+    th
   tbody
     - unless @characters.present?
       tr
@@ -21,7 +23,7 @@ table#characters_table width="100%"
           td
             = character.role
           td
-            = get_status(character.status)
+            = character.status
           td
             = link_to "Edit", edit_character_path(character)
           td
