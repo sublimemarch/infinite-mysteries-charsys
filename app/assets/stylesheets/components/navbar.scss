@@ -1,0 +1,21 @@
+.navbar {
+  position: fixed;
+  right: 5px;
+  top: 5px;
+  background-color: $pink;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+
+  i {
+    color: white;
+    font-size: 25px;
+    position: fixed;
+    right: 14px;
+    top: 13px;
+  }
+
+  &:hover {
+    background-color: $orange;
+  }
+}
