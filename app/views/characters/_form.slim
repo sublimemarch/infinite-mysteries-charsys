@@ -183,8 +183,8 @@
 		function validateStats() {
 			var formData = $('form').serialize();
 			$.ajax({
-				url: '/api/characters/validate_stats',
-				method: 'post',
+				url: '#{validate_stats_path}',
+				method: 'GET',
 				data: formData,
 				success: function(data) {
 					console.log(data);

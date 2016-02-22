@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get 'api/campaigns/get_storytellers' => 'campaigns#get_storytellers'
 
   get 'api/characters/get_power/:id' => 'characters#get_power'
-  post 'api/characters/validate_stats' => 'characters#validate_stats'
+  get 'api/characters/validate_stats' => 'characters#validate_stats', as: 'validate_stats'
 
   resources :campaigns
   resources :characters

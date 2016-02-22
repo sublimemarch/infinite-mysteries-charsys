@@ -144,16 +144,23 @@ class CharactersController < ApplicationController
 		tier1 = 0
 		tier2 = 0;
 		powers.each do |power|
-			power_rec = Power.find(power[:power_id])
-			if power_rec.tier == 1
-				tier1 += 1
-			else
-				tier2 += 1
+			if power[:power_id].present?
+				power_rec = Power.find(power[:power_id])
+				if power_rec.tier == 1
+					tier1 += 1
+				else
+					tier2 += 1
+				end
 			end
 		end
 		backgrounds = params[:character][:item].to_i + params[:character][:money].to_i + params[:character][:allies].to_i
-		background_points = [background_points - 2, 0].min
-		knacks = params[:character][:knacks].length
+		if broad_type.name == "Mortal"
+			background_points = [backgrounds - 4, 0].max
+		else
+			background_points = [backgrounds - 2, 0].max
+		end
+		knacks = params[:character][:knacks].delete_if {|knack| knack[:id] == ""}
+		knacks = knacks.length
 		knack_points = [knacks - 3, 0].min
 		if broad_type.name == "Mortal"
 			if knacks <= 8 && knacks >= 3
@@ -180,11 +187,7 @@ class CharactersController < ApplicationController
 				end
 			end
 		end
-		respond_to do |format|
-			format.json {
-				render json: {build_points: tier1*3 + tier2*5 + background_points + knack_points, knacks_ok: knacks_ok, knacks_error: knacks_error, backgrounds_ok: backgrounds >= 2}
-			}
-		end
+		render json: {build_points: tier1*3 + tier2*5 + background_points + knack_points, knacks_ok: knacks_ok, knacks_error: knacks_error, backgrounds_ok: backgrounds >= 2}
 	end
 
 	private
