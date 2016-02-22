@@ -153,6 +153,10 @@ class CharactersController < ApplicationController
 				end
 			end
 		end
+		power_points = tier1 * 3 + tier2 * 5
+		if broad_type.name == "Wyrd"
+			power_points -= 3
+		end
 		backgrounds = params[:character][:item].to_i + params[:character][:money].to_i + params[:character][:allies].to_i
 		if broad_type.name == "Mortal"
 			background_points = [backgrounds - 4, 0].max
@@ -174,6 +178,14 @@ class CharactersController < ApplicationController
 					knacks_error = 3 - knacks
 				end
 			end
+		elsif broad_type.name == "Wyrd"
+			if knacks <= 3
+				knacks_ok = true
+				knacks_error = 0
+			else
+				knacks_ok = false
+				knacks_error = knacks - 3
+			end
 		else
 			if knacks <= 6 && knacks >= 3
 				knacks_ok = true
@@ -187,7 +199,7 @@ class CharactersController < ApplicationController
 				end
 			end
 		end
-		render json: {build_points: tier1*3 + tier2*5 + background_points + knack_points, knacks_ok: knacks_ok, knacks_error: knacks_error, backgrounds_ok: backgrounds >= 2}
+		render json: {build_points: power_points + background_points + knack_points, knacks_ok: knacks_ok, knacks_error: knacks_error, backgrounds_ok: backgrounds >= 2}
 	end
 
 	private
