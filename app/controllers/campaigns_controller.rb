@@ -31,7 +31,7 @@ class CampaignsController < ApplicationController
 				@admin.save!
 			end
 			flash[:success] = "Your new campaign was successfully saved."
-			redirect_to campaign_path(@campaign)
+			redirect_to root_path
 		else
 			flash[:error] = "There was an error creating your campaign."
 			redirect_to new_campaign_path
@@ -65,7 +65,7 @@ class CampaignsController < ApplicationController
 				end
 			end
 			flash[:success] = "The changes to your campaign were successfully saved."
-			redirect_to campaign_path(@campaign)
+			redirect_to root_path
 		else
 			flash[:error] = "There was an error saving the changes to your campaign."
 			redirect_to edit_campaign_path(@campaign)
