@@ -1,19 +1,24 @@
 - content_for :title, "New Character"
 
-h2 New Character
+.row.full-width
+	.small-12.columns
+		h2 New Character
 
 = form_for @character, url: {action: 'create'} do |f|
 	= render partial: 'form', locals: {f: f}
 	= hidden_field :character, :user_id, value: current_user.id
+	
+	.row.full-width
+		.small-12.columns
+			= button_tag 'Create', type: 'submit'
+			= button_tag 'Create and Submit', type: 'submit', id: 'submit_character'
 
-	= button_tag 'Create', type: 'submit'
-	= button_tag 'Create and Submit', type: 'submit', id: 'submit_character'
-
+	
 javascript:
 	jQuery(document).ready(function() {
-		jQuery('#submit_character').click(function(e) {
-			e.preventDefault();
-			jQuery('#character_status').val('1');
-			jQuery('form').submit();
-		});
+	  jQuery('#submit_character').click(function(e) {
+	    e.preventDefault();
+	    jQuery('#character_status').val('1');
+	    jQuery('form').submit();
+	  });
 	});

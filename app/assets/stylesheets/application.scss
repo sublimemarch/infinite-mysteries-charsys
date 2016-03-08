@@ -10,12 +10,13 @@
 }
 
 .fa.delete {
-	color: #600;
+	margin-left: 5px;
+	color: $orange;
 	cursor: pointer;
 }
 
 .fa.delete:hover {
-	color: #900;
+	color: darken($orange, 15%);
 }
 
 .wound {
@@ -39,4 +40,25 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+
+	padding-bottom: 2em;
+
+}
+
+.full-width {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: initial;
+}
+
+button {
+	background-color: $light-purple;
+	color: white;
+	border-radius: 2px;
+	padding: 5px;
+}
+
+button, input[type="submit"] {
+	margin-right: 1.5em;
 }
