@@ -1,3 +1,7 @@
 .navbar
-  = link_to root_path
-    <i class="fa fa-home"></i>
+  .home
+    = link_to root_path
+      <i class="fa fa-home"></i>
+  .logout
+    = link_to destroy_user_session_path, :method => :delete
+      <i class="fa fa-sign-out"></i>
