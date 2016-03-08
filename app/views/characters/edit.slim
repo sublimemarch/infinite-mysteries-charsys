@@ -1,28 +1,31 @@
 - content_for :title, "Edit Character: #{@character.name}"
-
-h2 
-	= "Edit Character: #{@character.name}"
+.row.full-width
+	.small-12.columns
+		h2 
+			= "Edit Character: #{@character.name}"
 
 = form_for @character, url: {action: 'update'} do |f|
 	= render partial: 'form', locals: {f: f}
 	= hidden_field :character, :user_id, value: @character.user_id
-
-	= button_tag 'Save', type: 'submit'
-	- if @character.status == 0
-		= button_tag 'Save and Submit', type: 'submit', id: 'submit_character', 'data-status': 1
-	- elsif @character.campaign.users.include?(current_user)
-		= button_tag 'Reopen', type: 'submit', id: 'reopen_character', 'data-status': 0
-		- case @character.status
-			- when 1
-				= button_tag 'Approve', type: 'submit', id: 'approve_character', 'data-status': 2
-				= button_tag 'Approve and Activate', type: 'submit', id: 'activate_character', 'data-status': 3
-			- when 2
-				= button_tag 'Activate', type: 'submit', id: 'activate_character', 'data-status': 3
-			- when 3
-				= button_tag 'Deactivate', type: 'submit', id: 'deactivate_character', 'data-status': 5
-				= button_tag 'KILL', type: 'submit', id: 'kill_character', 'data-status': 4
-			- when 4..5
-				= button_tag 'Reactivate', type: 'submit', id: 'reactivate_character', 'data-status': 3
+	
+	.row.full-width
+		.small-12.columns
+			= button_tag 'Save', type: 'submit'
+			- if @character.status == 0
+				= button_tag 'Save and Submit', type: 'submit', id: 'submit_character', 'data-status': 1
+			- elsif @character.campaign.users.include?(current_user)
+				= button_tag 'Reopen', type: 'submit', id: 'reopen_character', 'data-status': 0
+				- case @character.status
+					- when 1
+						= button_tag 'Approve', type: 'submit', id: 'approve_character', 'data-status': 2
+						= button_tag 'Approve and Activate', type: 'submit', id: 'activate_character', 'data-status': 3
+					- when 2
+						= button_tag 'Activate', type: 'submit', id: 'activate_character', 'data-status': 3
+					- when 3
+						= button_tag 'Deactivate', type: 'submit', id: 'deactivate_character', 'data-status': 5
+						= button_tag 'KILL', type: 'submit', id: 'kill_character', 'data-status': 4
+					- when 4..5
+						= button_tag 'Reactivate', type: 'submit', id: 'reactivate_character', 'data-status': 3
 
 
 javascript: 

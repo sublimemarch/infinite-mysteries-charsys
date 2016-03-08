@@ -9,9 +9,8 @@
 	= hidden_field :character, :user_id, value: current_user.id
 	
 	.row.full-width
-		.small-1.columns
+		.small-12.columns
 			= button_tag 'Create', type: 'submit'
-		.small-2.columns.end
 			= button_tag 'Create and Submit', type: 'submit', id: 'submit_character'
 
 	
