@@ -2,20 +2,38 @@
   position: fixed;
   right: 5px;
   top: 5px;
-  background-color: $light-purple;
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
 
-  i {
-    color: white;
-    font-size: 25px;
-    position: fixed;
-    right: 14px;
-    top: 13px;
+  .home, .logout {
+    background-color: $light-purple;
+
+    &:hover {
+      background-color: $orange;
+    }
   }
 
-  &:hover {
-    background-color: $orange;
+  .home, .logout {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+
+    i {
+      color: white;
+      position: relative;
+      font-size: 25px;
+      top: 8px;
+    }
   }
+
+  .home i {
+    left: 8px;
+  }
+
+  .logout {
+    margin-top: 10px;
+  }
+
+  .logout i {
+    left: 10px;
+  }
+
 }
