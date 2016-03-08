@@ -1,6 +1,15 @@
 require 'json'
 
 class CharactersController < ApplicationController
+	T1_COST = 3
+	T2_COST = 5
+	STANDARD_BACKGROUNDS = 2
+	MORTAL_BACKGROUNDS = 4
+	WYRD_POWER_POINTS = 3
+	UNDEAD_BONUS_KNACKS = 3
+	GOODNEIGHBOR_BONUS_KNACKS = 3
+	MORTAL_MAX_KNACKS = 5
+
 	CHARACTER_STATUS = ['In Progress', 'Submitted', 'Approved', 'Active', 'Deceased', 'Inactive']
 	def get_status(status)
 		return CHARACTER_STATUS[status]
@@ -153,15 +162,15 @@ class CharactersController < ApplicationController
 				end
 			end
 		end
-		power_points = tier1 * 3 + tier2 * 5
+		power_points = tier1 * T1_COST + tier2 * T2_COST
 		if broad_type.name == "Wyrd"
-			power_points -= 3
+			power_points -= WYRD_POWER_POINTS
 		end
 		backgrounds = params[:character][:item].to_i + params[:character][:money].to_i + params[:character][:allies].to_i
 		if broad_type.name == "Mortal"
-			background_points = [backgrounds - 4, 0].max
+			background_points = [backgrounds - MORTAL_BACKGROUNDS, 0].max
 		else
-			background_points = [backgrounds - 2, 0].max
+			background_points = [backgrounds - STANDARD_BACKGROUNDS, 0].max
 		end
 		knacks = params[:character][:knacks].delete_if {|knack| knack[:id] == ""}
 		knacks = knacks.length
