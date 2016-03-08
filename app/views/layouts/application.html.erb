@@ -12,9 +12,11 @@
   </head>
 
   <body>
-    <header>
-      <%= render "layouts/navbar" %>
-    </header>
+    <% if current_user %>
+      <header>
+        <%= render "layouts/navbar" %>
+      </header>
+    <% end %>
 
     <div class="flash-messages">
       <% flash.each do |name, msg| %>
