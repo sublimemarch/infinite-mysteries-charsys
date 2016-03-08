@@ -14,6 +14,7 @@ class CharactersController < ApplicationController
 	def get_status(status)
 		return CHARACTER_STATUS[status]
 	end
+
 	helper_method :get_status
 
 	before_action :authenticate_user!
