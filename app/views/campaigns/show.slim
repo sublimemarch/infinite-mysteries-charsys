@@ -32,4 +32,6 @@ table#characters_table width="100%"
           td
             = link_to "Edit", edit_character_path(character)
           td
-            = link_to "Delete", delete_character_path(character)
+            = form_for :character, url: "/characters/#{character.id}", method: 'DELETE' do |f|
+              = f.hidden_field :id
+              = button_tag "Delete", type: 'submit'
