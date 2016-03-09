@@ -7,7 +7,7 @@ class CampaignsController < ApplicationController
 	
 	def show
 		@campaign = Campaign.find(params[:id])
-		@characters = @campaign.characters
+		@characters = Character.where({campaign: @campaign.id})
 		unless @campaign.users.include?(current_user)
 			redirect_to root_path
 		end
