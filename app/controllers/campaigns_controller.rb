@@ -8,7 +8,7 @@ class CampaignsController < ApplicationController
 	def show
 		@campaign = Campaign.find(params[:id])
 		unless @campaign.users.include?(current_user)
-			redirect_to campaigns_path
+			redirect_to root_path
 		end
 	end
 
@@ -75,7 +75,7 @@ class CampaignsController < ApplicationController
 	def destroy
 		@campaign = Campaign.find(params[:id])
 		@campaign.delete
-		redirect_to campaigns_path
+		redirect_to root_path
 	end
 
 	def find_storyteller
