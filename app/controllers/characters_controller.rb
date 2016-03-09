@@ -28,7 +28,7 @@ class CharactersController < ApplicationController
 	end
 
 	def new
-		@character = Character.new({campaign_id: 1})
+		@character = Character.new({campaign_id: 1, spirit_max: 6, spirit_refresh: 3})
 	end
 
 	def create

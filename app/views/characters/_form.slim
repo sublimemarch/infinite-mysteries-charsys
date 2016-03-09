@@ -18,10 +18,10 @@
 		= collection_select :character, :approach_id, Approach.all, :id, :name
 	.small-2.columns
 		= label_tag :spirit_max, "Spirit Max"
-		= f.number_field :spirit_max
+		= f.number_field :spirit_max, min: 0
 	.small-2.columns
 		= label_tag :spirit_refresh, "Spirit Refresh"
-		= f.number_field :spirit_refresh
+		= f.number_field :spirit_refresh, min: 0
 	.small-4.columns
 		= label_tag :regeneration_style, "Regeneration Style"
 		= f.text_field :regeneration_style
@@ -50,15 +50,15 @@
 		h3 Backgrounds
 
 		= label_tag :item
-		= f.number_field :item, max: 4
+		= f.number_field :item, max: 4, min: 0
 		= label_tag :item_description
 		= f.text_area :item_description
 		= label_tag :money
-		= f.number_field :money, max: 4
+		= f.number_field :money, max: 4, min: 0
 		= label_tag :money_description
 		= f.text_area :money_description
 		= label_tag :allies
-		= f.number_field :allies, max: 4
+		= f.number_field :allies, max: 4, min: 0
 		= label_tag :allies_description
 		= f.text_area :allies_description
 		
