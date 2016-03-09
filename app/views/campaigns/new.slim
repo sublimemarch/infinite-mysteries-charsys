@@ -7,5 +7,5 @@
 
 javascript:
 	jQuery(document).ready(function() {
-		jQuery('#user_administers_campaign_user_id').tokenInput("/campaigns/find_storyteller", {preventDuplicates: true, propertyToSearch: 'email', theme: 'facebook'})
+		jQuery('#user_administers_campaign_user_id').tokenInput("/api/campaigns/find_storyteller", {preventDuplicates: true, propertyToSearch: 'email', theme: 'facebook'})
 	});

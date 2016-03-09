@@ -76,7 +76,7 @@ class CampaignsController < ApplicationController
 	def destroy
 		@campaign = Campaign.find(params[:id])
 		@campaign.delete
-		redirect_to campaigns_path
+		redirect_to root_path
 	end
 
 	def find_storyteller
