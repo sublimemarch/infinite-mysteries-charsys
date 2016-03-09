@@ -35,3 +35,13 @@ table#characters_table width="100%"
 /   = label_tag :campaign
 /   = collection_select :character, :campaign_id, Campaign.all, :id, :name
 /   = button_tag "Create Character", type: 'submit'
+
+javascript:
+  $('table form button').on('click', function(e) {
+    e.preventDefault();
+    var delete = confirm("Are you sure you'd like to delete?");
+    if (delete == true) {
+      $(this).parents('form').submit();
+    }
+    return;
+  });
