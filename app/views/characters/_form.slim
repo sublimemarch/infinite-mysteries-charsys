@@ -30,7 +30,7 @@
 		h3 Knacks
 		= label_tag :knack
 		= text_field_tag :knack
-		= button_tag "Add", type: 'submit', id: 'add_knack'
+		= button_tag "Add", id: 'add_knack', type: 'button'
 		ul#knacks
 			- if @character.knacks.present?
 				- @character.knacks.each do |knack|
@@ -65,7 +65,7 @@
 	.small-6.columns
 		h3 Powers
 		= collection_select :power, :power_id, Power.all, :id, :name
-		= button_tag 'Add', id: 'add_power'
+		= button_tag 'Add', id: 'add_power', type: 'button'
 		ul#powers
 			- if @character.character_has_powers.present?
 				- @character.character_has_powers.each do |power|
@@ -95,7 +95,7 @@
 		h3 Flaws
 		= label_tag :flaw
 		= text_field_tag :flaw
-		= button_tag "Add", type: 'submit', id: 'add_flaw'
+		= button_tag "Add", id: 'add_flaw', type: 'button'
 		ul#flaws
 			- if @character.flaws.present?
 				- @character.flaws.each do |flaw|
@@ -110,8 +110,6 @@
 				= hidden_field_tag "character[flaws][][flaw]"
 				= hidden_field_tag "character[flaws][][id]"
 				i.fa.fa-minus-circle.delete
-
-
 
 javascript:
 	$('#add_knack').click(function(e) {
@@ -147,6 +145,9 @@ javascript:
 	      newItem.children('p.name').text(data['name']);
 	      newItem.children('p.description').text(data['description']);
 	      newItem.children('p.specification').children('label').text(data['specification_name']);
+	      if (data['requires_specification'] == false) {
+	      	newItem.children('p.specification').hide();
+	      }
 	      newItem.children('input[name="character[character_has_powers][][power_id]"]').val(powerId);
 	      $('#powers').append(newItem);
 	    }

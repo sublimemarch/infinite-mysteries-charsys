@@ -56,8 +56,9 @@ table#character_sheet width="100%"
 					dd #{@character.allies_description}
 
 				h3 Stress
-
-				<i class="fa fa-square-o"></i> <i class="fa fa-square-o"></i> <i class="fa fa-square-o"></i>
+				
+				- (@endurance_count+3).times do |i|
+					<i class="fa fa-square-o"></i>
 
 				h3 Wounds
 
