@@ -25,6 +25,8 @@ class CharactersController < ApplicationController
 
 	def show
 		@character = Character.find(params[:id])
+		endurance = Power.where({name: "Endurance"}).first
+		@endurance_count = CharacterHasPower.where({power_id: endurance.id, character_id: @character.id}).count
 	end
 
 	def new
