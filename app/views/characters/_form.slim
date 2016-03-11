@@ -52,15 +52,15 @@
 		= label_tag :item
 		= f.number_field :item, max: 4, min: 0
 		= label_tag :item_description
-		= f.text_area :item_description
+		= f.text_area :item_description, rows: 5
 		= label_tag :money
 		= f.number_field :money, max: 4, min: 0
 		= label_tag :money_description
-		= f.text_area :money_description
+		= f.text_area :money_description, rows: 5
 		= label_tag :allies
 		= f.number_field :allies, max: 4, min: 0
 		= label_tag :allies_description
-		= f.text_area :allies_description
+		= f.text_area :allies_description, rows: 5
 		
 	.small-6.columns
 		h3 Powers
