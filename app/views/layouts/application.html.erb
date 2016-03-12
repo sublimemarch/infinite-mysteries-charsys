@@ -7,6 +7,9 @@
     <title>Infinite Mysteries Characters | <%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
     <link href='https://fonts.googleapis.com/css?family=Oswald|PT+Mono' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag    "application", media: "all" %>
+    <style type="text/css" media="print">
+     .navbar { display: none; }
+    </style>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
